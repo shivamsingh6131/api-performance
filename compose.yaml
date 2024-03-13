@@ -5,9 +5,9 @@ services:
     restart: always
     build:
       context: .
-      target: development  # Make sure your Dockerfile has a development stage.
+      target: development # Make sure your Dockerfile has a development stage.
     volumes:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
     ports:
-      - "3344:3344"
+      - '3344:3344'

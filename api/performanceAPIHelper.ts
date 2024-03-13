@@ -1,15 +1,31 @@
 import axios from 'axios';
-import { PerformanceData } from '../types/genericTypes';
+import { PerformanceData } from '../utils/types/genericTypes';
 import { performance } from 'perf_hooks';
+import logger from '../utils/helpers/logger';
 
 export const evaluateApiPerformance = async (virtualUsers: number, graphqlQuery: string): Promise<PerformanceData> => {
   try {
+    logger.info('evaluateApiPerformance started.');
     const responseTimes: number[] = [];
 
     const globalStart: number = performance.now();
     for (let i = 0; i < virtualUsers; i++) {
       const start: number = performance.now();
-      await axios.post(process.env.GRAPHQL_ENDPOINT, { query: graphqlQuery });
+      const config = {
+        method: 'post',
+        maxBodyLength: Infinity,
+        url: process.env.GRAPHQL_ENDPOINT,
+        headers: {
+          // 'WM_CONSUMER.ID': process.env.WM_CONSUMER_ID,
+          // 'WM_SVC.NAME': process.env.WM_SVC_NAME,
+          // 'WM_SVC.ENV': process.env.WM_SVC_ENV,
+          // 'WM_SEC.KEY_VERSION': process.env.WM_SEC_KEY_VERSION,
+          // 'WM_CONSUMER.INTIMESTAMP': process.env.WM_CONSUMER_INTIMESTAMP,
+          // 'REQUEST_SOURCE': process.env.REQUEST_SOURCE
+        },
+      };
+
+      await axios.post(config.url, { query: graphqlQuery }, config);
 
       const end: number = performance.now();
       // const responseTime = (end - start) / 1000; // Convert to seconds
@@ -37,6 +53,8 @@ export const evaluateApiPerformance = async (virtualUsers: number, graphqlQuery:
     const percentileIndex95: number = Math.floor(0.95 * virtualUsers);
     const ninetyFifthPercentile: number = sortedResponseTimes[percentileIndex95];
 
+    logger.info(`evaluateApiPerformance success.`);
+
     return {
       averageTime: Number(averageTime.toFixed(2)),
       minTime: Number(minTime.toFixed(2)),
@@ -48,7 +66,7 @@ export const evaluateApiPerformance = async (virtualUsers: number, graphqlQuery:
       totalTimeTaken: Number(globalTotalTimeTaken.toFixed(2)),
     };
   } catch (error) {
-    console.log('ERROR ', error);
+    logger.error(`Error in evaluateApiPerformance : ${JSON.stringify(error?.stack)}`);
     throw new Error(error);
   }
 };

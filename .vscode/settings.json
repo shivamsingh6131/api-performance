@@ -2,19 +2,20 @@
   "workbench.colorCustomizations": {
     "editor.lineHighlightBackground": "#1073cf2d",
     "editor.lineHighlightBorder": "#9fced11f",
-    "titleBar.activeBackground": "#e086c9",
+    "titleBar.activeBackground": "#91d8e0",
     "titleBar.activeForeground": "#000000",
-    "titleBar.inactiveBackground": "#e086c9",
+    "titleBar.inactiveBackground": "#91d8e0",
     "titleBar.inactiveForeground": "#000000",
-    "titleBar.border": "#e086c9",
-    "activityBar.background": "#e086c9",
+    "titleBar.border": "#91d8e0",
+    "activityBar.background": "#91d8e0",
     "activityBar.foreground": "#000000",
-    "statusBar.background": "#e086c9",
+    "statusBar.background": "#91d8e0",
     "statusBar.foreground": "#000000",
-    "statusBar.debuggingBackground": "#e086c9",
+    "statusBar.debuggingBackground": "#91d8e0",
     "statusBar.debuggingForeground": "#000000",
-    "tab.activeBorder": "#e086c9",
+    "tab.activeBorder": "#91d8e0",
     "iLoveWorkSpaceColors": true,
     "iLoveWorkSpaceRandom": false
-  }
+  },
+  "cSpell.words": ["authheader"]
 }

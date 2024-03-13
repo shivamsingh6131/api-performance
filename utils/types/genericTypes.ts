@@ -1,9 +1,9 @@
-export interface PerformaceData {
+export interface PerformanceData {
   averageTime: number;
   minTime: number;
   maxTime: number;
   requestPerSecond: number;
-  totoalVirtualUsers: number;
+  totalVirtualUsers: number;
   ninetyPercentile: number;
   ninetyFifthPercentile: number;
   totalTimeTaken: number;
@@ -16,7 +16,7 @@ export interface Message {
 }
 
 export interface ResponseMessage extends Message {
-  data?: any;
+  data?: unknown;
 }
 
 export interface Error {
