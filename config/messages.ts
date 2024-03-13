@@ -1,7 +1,7 @@
 const defaultMessageConfig = {
   AUTHENTICATION_FAILED: {
     code: 400,
-    message: 'Authentication failed. Please login with valid credentials.',
+    message: 'Authentication failed. Please provide valid credentials.',
     success: false,
   },
   SUCCESSFUL_LOGIN: {

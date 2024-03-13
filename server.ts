@@ -3,9 +3,10 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import dotenv from 'dotenv';
 import routes from './routes';
-dotenv.config();
+import logger from './utils/helpers/logger';
+
+//Load all Env data from config file.
 require('./config/config');
 
 const app = express();
@@ -20,8 +21,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 routes(app);
 
 const PORT = process.env.PORT || 3456;
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 app.listen(PORT, () => {
   console.log(`${process.env.NODE_ENV || 'dev'} Server is running on http://localhost:${PORT}`);
+  logger.info(`${process.env.NODE_ENV || 'dev'} Server is running on http://localhost:${PORT}`);
 });
 export default app;

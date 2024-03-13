@@ -66,7 +66,7 @@ export const evaluateApiPerformance = async (virtualUsers: number, graphqlQuery:
       totalTimeTaken: Number(globalTotalTimeTaken.toFixed(2)),
     };
   } catch (error) {
-    logger.error(`Error in evaluateApiPerformance : ${JSON.stringify(error?.stack)}`);
+    logger.error(`evaluateApiPerformance error: ${JSON.stringify(error?.stack)}`);
     throw new Error(error);
   }
 };

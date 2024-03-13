@@ -3,10 +3,10 @@ import rfs from 'rotating-file-stream';
 import pino from 'pino';
 import pinoPretty from 'pino-pretty';
 
-const name = process.env.npm_package_name;
-const logFileName = `./log/${name}.log`;
-const logDirectory = './log';
-const level = process.env.LOG_LEVEL || 'info';
+const name: string = process.env.npm_package_name;
+const logFileName: string = `./log/${name}.log`;
+const logDirectory: string = './log';
+const level: string = process.env.LOG_LEVEL || 'info';
 
 const consoleStream =
   process.env.ENVIRONMENT === 'development'
