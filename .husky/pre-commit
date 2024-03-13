@@ -1,8 +1,11 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
+# fix lint error
 npm run lint:fix
-npm run format
-npm run prettier:check
+# format code
+npm run prettier:format
+#check typescript error
 npm run lint:check
+# add the code for same commit . (if any changes because of code auto fomratting)
 git add .
