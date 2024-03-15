@@ -3,7 +3,11 @@ import { PerformanceData } from '../utils/types/genericTypes';
 import { performance } from 'perf_hooks';
 import logger from '../utils/helpers/logger';
 
-export const evaluateApiPerformance = async (virtualUsers: number, graphqlQuery: string): Promise<PerformanceData> => {
+export const evaluateApiPerformance = async (
+  virtualUsers: number,
+  graphqlQuery: string,
+  variables: unknown
+): Promise<PerformanceData> => {
   try {
     logger.info('evaluateApiPerformance started.');
     const responseTimes: number[] = [];
@@ -11,6 +15,12 @@ export const evaluateApiPerformance = async (virtualUsers: number, graphqlQuery:
     const globalStart: number = performance.now();
     for (let i = 0; i < virtualUsers; i++) {
       const start: number = performance.now();
+
+      const data = {
+        query: graphqlQuery,
+        variables,
+      };
+
       const config = {
         method: 'post',
         maxBodyLength: Infinity,
@@ -21,11 +31,13 @@ export const evaluateApiPerformance = async (virtualUsers: number, graphqlQuery:
           // 'WM_SVC.ENV': process.env.WM_SVC_ENV,
           // 'WM_SEC.KEY_VERSION': process.env.WM_SEC_KEY_VERSION,
           // 'WM_CONSUMER.INTIMESTAMP': process.env.WM_CONSUMER_INTIMESTAMP,
-          // 'REQUEST_SOURCE': process.env.REQUEST_SOURCE
+          // 'REQUEST_SOURCE': process.env.REQUEST_SOURCE,
+          'Content-Type': 'application/json',
         },
+        data: data,
       };
 
-      await axios.post(config.url, { query: graphqlQuery }, config);
+      await axios.request(config);
 
       const end: number = performance.now();
       // const responseTime = (end - start) / 1000; // Convert to seconds

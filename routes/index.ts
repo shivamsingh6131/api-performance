@@ -11,9 +11,9 @@ const routes = (app) => {
 
   router.post('/graphql', checkAuthMiddleware, async (req: Request, res: Response) => {
     try {
-      const { graphqlQuery, virtualUsers } = req.body;
-      logger.info(`Request received at /graphql : ${JSON.stringify({ graphqlQuery, virtualUsers })}`);
-      const result = await evaluateApiPerformance(virtualUsers, graphqlQuery);
+      const { graphqlQuery, virtualUsers, variables } = req.body;
+      logger.info(`Request received at /graphql : ${JSON.stringify({ graphqlQuery, virtualUsers, variables })}`);
+      const result = await evaluateApiPerformance(virtualUsers, graphqlQuery, variables);
       serverResponses.sendSuccess(res, messages.SUCCESSFUL, result);
     } catch (error: unknown) {
       serverResponses.sendError(res, messages.BAD_REQUEST);
